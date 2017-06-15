@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 //import App from './header.js';
 //import registerServiceWorker from './registerServiceWorker';
-import './index.css'; 
+import './css/style.css'; 
 
 class Header extends React.Component {
   render() {

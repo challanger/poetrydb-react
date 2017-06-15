@@ -8,6 +8,9 @@
     "react-dom": "^15.5.4"
   },
   "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
     "react-scripts": "1.0.7"
   },
   "scripts": {
