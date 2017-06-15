@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './css/header.css';
 
-class App extends Component {
+class Header extends React.Component {
   render() {
     return (
       <header> 
@@ -15,9 +15,10 @@ class App extends Component {
               <li><a href="#">About</a></li>
             </ul> 
           </div> 
+        </div> 
       </header> 
     );
   }
 }
 
-export default App;
+export default Header;
