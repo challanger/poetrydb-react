@@ -8,13 +8,13 @@ class Header extends React.Component {
   render() {
     return (
       <header> 
-        <div class="row">
-          <div class="columns small-12 medium-4 logo">Logo</div> 
-          <div class="columns small-12 medium-8 menu">
+        <div className="row">
+          <div className="columns small-12 medium-4 logo">PoetryDB</div> 
+          <div className="columns small-12 medium-8 menu">
             <ul> 
               <li><a href="/">Home</a></li>
               <li><a target="_blank" href="http://poetrydb.org/index.html">PoetryDB</a></li>
-              <li><a href="#">About</a></li>
+              <li><a href="/about/">About</a></li>
             </ul> 
           </div> 
         </div> 
@@ -26,15 +26,10 @@ class Header extends React.Component {
 class MainContent extends React.Component {
     render() {
         return (
-            <div class="main">
-                <div class="row">
-                    <div class="columns medium-6 title">
-                        <h1>PoetryDB</h1>
-                    </div> 
-                </div>
-                <div class="row">
-                    <div class="columns medium-8 search"><input type="text" helper="Seach..." id="search"/></div>
-                    <div class="columns medium-2 filter">
+            <div className="main">
+                <div className="row search">
+                    <div className="columns small-offset-1 medium-6 search"><input type="text" placeholder="Seach..." id="search"/></div>
+                    <div className="columns medium-2 filter">
                         <select id="filter">
                             <option value="all" selected="true">All</option> 
                             <option value="author">Author</option>
@@ -43,9 +38,9 @@ class MainContent extends React.Component {
                             <option value="line-count">Line Count</option>
                         </select> 
                     </div>
-                    <div class="columns medium-2"><button id="searchButton">Search</button> </div> 
+                    <div className="columns medium-2"><button id="searchButton" className="button">Search</button> </div> 
                 </div>
-                <div class="row results"></div>  
+                <div className="row results"></div>  
             </div> 
         );
     }
