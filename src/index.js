@@ -24,6 +24,40 @@ class Header extends React.Component {
 }
 
 class MainContent extends React.Component {
+    constructor() {
+        super(); 
+        this.results = [
+            {
+                title:'Test 1',
+                author:'author 1',
+                lines: [
+                    "Line 1",
+                    "Line 2",
+                    "Line 3",
+                    "Line 4"
+                ]
+            },
+            {
+                title:'Test 2',
+                author:'author 2',
+                lines: [
+                    "Line 1",
+                    "Line 2",
+                    "Line 3",
+                    "Line 4"
+                ]
+            },{
+                title:'Test 3',
+                author:'author 1',
+                lines: [
+                    "Line 1",
+                    "Line 2",
+                    "Line 3",
+                    "Line 4"
+                ]
+            }
+        ];
+    }
     render() {
         return (
             <div className="main">
@@ -41,7 +75,10 @@ class MainContent extends React.Component {
                     <div className="columns medium-2"><button id="searchButton" className="button">Search</button> </div> 
                 </div>
                 <div className="row results">
-                    <SearchResult/> 
+                    {this.results.map(result =>
+                        <SearchResult result={result}/>
+                    )}
+                     
                 </div>  
             </div> 
         );
@@ -53,12 +90,12 @@ class SearchResult extends React.Component {
         return (
             <div className="columns medium-6 medium-offset-2 item">
                 <div className="inner">
-                    <div className="title">Title</div> 
-                    <div className="author">Author</div> 
+                    <div className="title">{this.props.result.title}</div> 
+                    <div className="author">{this.props.result.author}</div> 
                     <div className="body">
-                        <SearchResultLine/>
-                        <SearchResultLine/>
-                        <SearchResultLine/>
+                        {this.props.result.lines.map((line,key) =>
+                          <SearchResultLine line={line} index={key}/>  
+                        )}
                     </div> 
                 </div> 
             </div> 
@@ -69,7 +106,7 @@ class SearchResult extends React.Component {
 class SearchResultLine extends React.Component {
     render() {
         return (
-            <div className="line">test</div> 
+            <div className="line"><span className="lineNumber">{this.props.index + 1}</span>{this.props.line}</div> 
         );
     }
 }

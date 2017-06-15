@@ -3124,7 +3124,11 @@ header {
       .main .row.results .item .inner .body {
         margin-top: 10px; }
         .main .row.results .item .inner .body .line {
-          line-height: 1.3em; }
+          line-height: 1em;
+          padding-bottom: 5px; }
+          .main .row.results .item .inner .body .line .lineNumber {
+            font-size: 0.7em;
+            padding-right: 5px; }
 
 body {
   background-color: #eee;

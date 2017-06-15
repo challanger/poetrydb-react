@@ -26,7 +26,12 @@
                 .body {
                     margin-top: 10px; 
                     .line {
-                        line-height: 1.3em; 
+                        line-height: 1em;
+                        padding-bottom: 5px;  
+                        .lineNumber {
+                            font-size: 0.7em; 
+                            padding-right: 5px; 
+                        }
                     }
                 }
             }
