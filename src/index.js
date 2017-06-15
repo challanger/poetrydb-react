@@ -40,8 +40,36 @@ class MainContent extends React.Component {
                     </div>
                     <div className="columns medium-2"><button id="searchButton" className="button">Search</button> </div> 
                 </div>
-                <div className="row results"></div>  
+                <div className="row results">
+                    <SearchResult/> 
+                </div>  
             </div> 
+        );
+    }
+}
+
+class SearchResult extends React.Component {
+    render() {
+        return (
+            <div className="columns medium-6 medium-offset-2 item">
+                <div className="inner">
+                    <div className="title">Title</div> 
+                    <div className="author">Author</div> 
+                    <div className="body">
+                        <SearchResultLine/>
+                        <SearchResultLine/>
+                        <SearchResultLine/>
+                    </div> 
+                </div> 
+            </div> 
+        );
+    }
+}
+
+class SearchResultLine extends React.Component {
+    render() {
+        return (
+            <div className="line">test</div> 
         );
     }
 }

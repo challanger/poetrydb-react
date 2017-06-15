@@ -5,4 +5,31 @@
             padding: 0px 1px; 
         }
     }
+    .row.results {
+        .item {
+            margin-bottom: 10px;
+            padding: 0px;  
+            background-color: #fff;
+            color: #333; 
+            border-radius: 8px; 
+            .inner {
+                padding: 20px; 
+                .title {
+                    font-weight: bold; 
+                    font-size: 1.3em; 
+                    line-height: 1.2em; 
+                }
+                .author {
+                    font-size: 0.8em; 
+                    line-height: 1em; 
+                }
+                .body {
+                    margin-top: 10px; 
+                    .line {
+                        line-height: 1.3em; 
+                    }
+                }
+            }
+        }
+    }
 }
