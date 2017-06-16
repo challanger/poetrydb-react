@@ -57,22 +57,48 @@ class MainContent extends React.Component {
                 ]
             }
         ];
+        this.state = {
+            search:'',
+            filter:'all'
+        };
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSearch = this.handleSearch.bind(this); 
     }
+
+    handleInputChange(event){
+        const target = event.target; 
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name; 
+
+        this.setState({
+            [name]: value 
+        });
+    }
+
+    handleSearch(event){
+        console.log(this.state); 
+        event.preventDefault(); 
+    }
+
     render() {
         return (
             <div className="main">
                 <div className="row search">
-                    <div className="columns small-offset-1 medium-6 search"><input type="text" placeholder="Seach..." id="search"/></div>
+                    <div className="columns small-offset-1 medium-6 search">
+                        <input type="text" placeholder="Seach..." name="search" id="search" value={this.state.search} onChange={this.handleInputChange}/>
+                    </div>
                     <div className="columns medium-2 filter">
-                        <select id="filter">
-                            <option value="all" selected="true">All</option> 
+                        <select id="filter" name="filter" value={this.state.filter} onChange={this.handleInputChange}>
+                            <option value="all">All</option> 
                             <option value="author">Author</option>
                             <option value="lines">Lines</option>
                             <option value="title">Title</option>
                             <option value="line-count">Line Count</option>
                         </select> 
                     </div>
-                    <div className="columns medium-2"><button id="searchButton" className="button">Search</button> </div> 
+                    <div className="columns medium-2">
+                        <button id="searchButton" className="button" onClick={this.handleSearch}>Search</button> 
+                    </div> 
                 </div>
                 <div className="row results">
                     {this.results.map(result =>
