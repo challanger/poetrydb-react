@@ -14,7 +14,7 @@ class Header extends React.Component {
           <div className="columns small-12 medium-8 menu">
             <ul> 
               <li><a href="/">Home</a></li>
-              <li><a target="_blank" href="http://poetrydb.org/index.html">PoetryDB</a></li>
+              <li><a target="_blank" rel="noopener noreferrer" href="http://poetrydb.org/index.html">PoetryDB</a></li>
               <li><a href="/about/">About</a></li>
             </ul> 
           </div> 
