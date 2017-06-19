@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 //import App from './header.js';
 //import registerServiceWorker from './registerServiceWorker';
 import './css/style.css'; 
@@ -26,40 +27,10 @@ class Header extends React.Component {
 class MainContent extends React.Component {
     constructor() {
         super(); 
-        this.results = [
-            {
-                title:'Test 1',
-                author:'author 1',
-                lines: [
-                    "Line 1",
-                    "Line 2",
-                    "Line 3",
-                    "Line 4"
-                ]
-            },
-            {
-                title:'Test 2',
-                author:'author 2',
-                lines: [
-                    "Line 1",
-                    "Line 2",
-                    "Line 3",
-                    "Line 4"
-                ]
-            },{
-                title:'Test 3',
-                author:'author 1',
-                lines: [
-                    "Line 1",
-                    "Line 2",
-                    "Line 3",
-                    "Line 4"
-                ]
-            }
-        ];
         this.state = {
             search:'',
-            filter:'all'
+            filter:'all',
+            results: [] 
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSearch = this.handleSearch.bind(this); 
@@ -77,7 +48,49 @@ class MainContent extends React.Component {
 
     handleSearch(event){
         console.log(this.state); 
-        event.preventDefault(); 
+        if(this.state.search !== "")
+        {
+            this.setState({
+                results:[] 
+            }); 
+            
+            let query = ""; 
+            if(this.state.filter !== "all")
+                query = this.state.filter + "/"; 
+            query = query + encodeURI(this.state.search) + "/all";
+
+            axios({
+                    url: query,
+                    baseURL: 'https://thundercomb-poetry-db-v1.p.mashape.com/',
+                    headers:{
+                        'X-Mashape-Key':'OFJ4HR3QkYmshm0OQjIYaY0TyRV4p1aIEwfjsnoJUu0VCRAjwZ'
+                    }
+                })
+                .then(res => {
+                    if(res.status === 200)
+                    {
+                        if((typeof(res.data.status) !== "undefined"))
+                        {
+                            alert(res.data.reason);   
+                        }
+                        else 
+                        {
+                            this.setState({
+                                results:res.data 
+                            }); 
+                        }
+                    }
+                    else 
+                        alert("failed to load your results"); 
+                })
+                .catch(err =>{
+                    console.log(err);  
+                    //console.log("Responce Failed: "+ textStatus); 
+                });
+
+        }
+         
+        
     }
 
     render() {
@@ -101,7 +114,7 @@ class MainContent extends React.Component {
                     </div> 
                 </div>
                 <div className="row results">
-                    {this.results.map(result =>
+                    {this.state.results.map(result =>
                         <SearchResult result={result}/>
                     )}
                      
@@ -114,13 +127,13 @@ class MainContent extends React.Component {
 class SearchResult extends React.Component {
     render() {
         return (
-            <div className="columns medium-6 medium-offset-2 item">
+            <div className="columns medium-6 medium-offset-2 item" key={(this.props.result.author + this.props.result.title).toString()}>
                 <div className="inner">
                     <div className="title">{this.props.result.title}</div> 
                     <div className="author">{this.props.result.author}</div> 
                     <div className="body">
                         {this.props.result.lines.map((line,key) =>
-                          <SearchResultLine line={line} index={key}/>  
+                          <SearchResultLine line={line} index={key} key={key.toString()}/>  
                         )}
                     </div> 
                 </div> 
