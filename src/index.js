@@ -6,22 +6,35 @@ import axios from 'axios';
 import './css/style.css'; 
 
 class Header extends React.Component {
-  render() {
-    return (
-      <header> 
-        <div className="row">
-          <div className="columns small-12 medium-4 logo">PoetryDB</div> 
-          <div className="columns small-12 medium-8 menu">
-            <ul> 
-              <li><a href="/">Home</a></li>
-              <li><a target="_blank" rel="noopener noreferrer" href="http://poetrydb.org/index.html">PoetryDB</a></li>
-              <li><a href="/about/">About</a></li>
-            </ul> 
-          </div> 
-        </div> 
-      </header> 
-    );
-  }
+    constructor() {
+        super(); 
+        this.state = {
+
+        }; 
+
+        this.handleShowContent = this.handleShowContent.bind(this); 
+    }
+
+    handleShowContent(event){
+        alert("content to come");
+        event.preventDefault(); 
+    }
+
+    render() {
+        return (
+        <header> 
+            <div className="row">
+            <div className="columns small-12 medium-4 logo">PoetryDB</div> 
+            <div className="columns small-12 medium-8 menu">
+                <ul> 
+                <li><a target="_blank" rel="noopener noreferrer" href="http://poetrydb.org/index.html">PoetryDB</a></li>
+                <li><a href="#" onClick={this.handleShowContent}>About</a></li>
+                </ul> 
+            </div> 
+            </div> 
+        </header> 
+        );
+    }
 }
 
 class MainContent extends React.Component {
@@ -29,7 +42,7 @@ class MainContent extends React.Component {
         super(); 
         this.state = {
             search:'',
-            filter:'all',
+            filter:'title',
             results: [],
             resultsPage:[],
             pageNumber:0 
@@ -66,13 +79,16 @@ class MainContent extends React.Component {
         if(this.state.search !== "")
         {
             this.setState({
-                results:[] 
+                results:[],
+                resultsPage:[] 
             }); 
             
-            let query = ""; 
-            if(this.state.filter !== "all")
-                query = this.state.filter + "/"; 
-            query = query + encodeURI(this.state.search) + "/all";
+            let query = this.state.filter + "/" + encodeURI(this.state.search); 
+
+            if(this.state.filter === "linecount")
+                query = query + ":abs"; 
+                
+            query = query + "/all";
 
             axios({
                     url: query,
@@ -142,11 +158,10 @@ class MainContent extends React.Component {
                     </div>
                     <div className="columns medium-2 filter">
                         <select id="filter" name="filter" value={this.state.filter} onChange={this.handleInputChange}>
-                            <option value="all">All</option> 
                             <option value="author">Author</option>
                             <option value="lines">Lines</option>
                             <option value="title">Title</option>
-                            <option value="line-count">Line Count</option>
+                            <option value="linecount">Line Count</option>
                         </select> 
                     </div>
                     <div className="columns medium-2">
