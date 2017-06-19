@@ -114,8 +114,8 @@ class MainContent extends React.Component {
                     </div> 
                 </div>
                 <div className="row results">
-                    {this.state.results.map(result =>
-                        <SearchResult result={result}/>
+                    {this.state.results.map((result,key) =>
+                        <SearchResult result={result} key={(result.author + result.title + key).toString()}/>
                     )}
                      
                 </div>  
@@ -127,7 +127,7 @@ class MainContent extends React.Component {
 class SearchResult extends React.Component {
     render() {
         return (
-            <div className="columns medium-6 medium-offset-2 item" key={(this.props.result.author + this.props.result.title).toString()}>
+            <div className="columns medium-6 medium-offset-2 item">
                 <div className="inner">
                     <div className="title">{this.props.result.title}</div> 
                     <div className="author">{this.props.result.author}</div> 
