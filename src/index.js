@@ -30,10 +30,15 @@ class MainContent extends React.Component {
         this.state = {
             search:'',
             filter:'all',
-            results: [] 
+            results: [],
+            resultsPage:[],
+            pageNumber:0 
         };
+        this.numberPerPage=10; 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSearch = this.handleSearch.bind(this); 
+        this.handleResultsForwards = this.handleResultsForwards.bind(this); 
+        this.handleResultsBack = this.handleResultsBack.bind(this); 
     }
 
     handleInputChange(event){
@@ -46,8 +51,18 @@ class MainContent extends React.Component {
         });
     }
 
+    loadPage(){
+        if(this.state.pageNumber > this.state.results.length / this.numberPerPage)
+            this.setState({ pageNumber: Math.floor(this.state.results.length / this.numberPerPage)});
+
+        let minIndex = this.state.pageNumber * this.numberPerPage; 
+        let maxIndex = (this.state.pageNumber + 1) * this.numberPerPage; 
+        this.setState({
+            resultsPage: this.state.results.filter((elm,index,arr) => ((index >=minIndex) && (index <maxIndex)))
+        }); 
+    }
+
     handleSearch(event){
-        console.log(this.state); 
         if(this.state.search !== "")
         {
             this.setState({
@@ -76,8 +91,9 @@ class MainContent extends React.Component {
                         else 
                         {
                             this.setState({
-                                results:res.data 
-                            }); 
+                                results:res.data,
+                                pageNumber: 0
+                            },() => {this.loadPage()}); 
                         }
                     }
                     else 
@@ -89,8 +105,32 @@ class MainContent extends React.Component {
                 });
 
         }
-         
-        
+    }
+
+    pageIncrement(inc){
+        this.setState((prevState,props) => {
+            let temp = prevState.pageNumber + inc; 
+            if(temp > -1)
+            {
+                if(temp > Math.floor(this.state.results.length / this.numberPerPage))
+                    temp = Math.floor(this.state.results.length / this.numberPerPage); 
+            }
+            else 
+            {
+                temp = 0; 
+            }
+            return ({
+                pageNumber:temp
+            }); 
+        },() => { this.loadPage() });
+    }
+
+    handleResultsForwards(){
+        this.pageIncrement(1);
+    }
+
+    handleResultsBack(){
+        this.pageIncrement(-1);
     }
 
     render() {
@@ -114,11 +154,18 @@ class MainContent extends React.Component {
                     </div> 
                 </div>
                 <div className="row results">
-                    {this.state.results.map((result,key) =>
+                    {this.state.resultsPage.map((result,key) =>
                         <SearchResult result={result} key={(result.author + result.title + key).toString()}/>
                     )}
                      
-                </div>  
+                </div>
+                <div className="row searchPages">
+                    <div className="outer">
+                        <div className="button leftArrow" onClick={this.handleResultsBack}>&lt;</div> 
+                        <div className="pageNumber">{(this.state.pageNumber + 1)}</div> 
+                        <div className="button rightArrow" onClick={this.handleResultsForwards}>&gt;</div>  
+                    </div> 
+                </div> 
             </div> 
         );
     }

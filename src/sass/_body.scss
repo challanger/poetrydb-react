@@ -37,4 +37,24 @@
             }
         }
     }
+    .searchPages {
+        .outer {
+            width: auto; 
+            margin-left: auto; 
+            margin-right: auto; 
+        } 
+        .button,.pageNumber {
+            display: inline-block; 
+        }
+        .button {
+            cursor: pointer; 
+            margin-bottom: 7px; 
+        }
+        .leftArrow {
+            margin-right: 10px; 
+        }
+        .rightArrow {
+            margin-left: 10px; 
+        }
+    }
 }

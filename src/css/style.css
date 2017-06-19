@@ -3129,6 +3129,19 @@ header {
           .main .row.results .item .inner .body .line .lineNumber {
             font-size: 0.7em;
             padding-right: 5px; }
+  .main .searchPages .outer {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto; }
+  .main .searchPages .button, .main .searchPages .pageNumber {
+    display: inline-block; }
+  .main .searchPages .button {
+    cursor: pointer;
+    margin-bottom: 7px; }
+  .main .searchPages .leftArrow {
+    margin-right: 10px; }
+  .main .searchPages .rightArrow {
+    margin-left: 10px; }
 
 body {
   background-color: #eee;
